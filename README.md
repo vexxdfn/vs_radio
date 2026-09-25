@@ -154,3 +154,8 @@ Place `key_up` and/or `key_down` (`.ogg`, `.mp3` or `.wav`) in `web/sounds/` and
 - pma-voice supports one radio channel at a time, so there is no multi-channel scanning.
 - `setRadioChannel` is a client export in pma-voice, so channel restrictions can be bypassed by a cheat menu calling it directly. This applies to every radio built on pma-voice.
 - When `radioSounds` is enabled, pma-voice's mic clicks are turned off for each player and restored when the resource stops.
+
+## License
+
+Licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+Free to use on any server, including monetized ones. You may not sell or resell this script.
