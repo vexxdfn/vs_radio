@@ -5,6 +5,8 @@ A handheld radio for FiveM built on [pma-voice](https://github.com/AvarianKnight
 # Support
 Join discord for support! http://discord.gg/FwN8UyPgHm
 
+<img width="1874" height="786" alt="vs_phone1" src="https://github.com/user-attachments/assets/d3ac3d4f-34fd-41fb-b72a-5662d469e817" />
+
 ## Features
 
 - Item-based, or open with a command/keybind
