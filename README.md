@@ -21,7 +21,7 @@ Join discord for support! http://discord.gg/FwN8UyPgHm
 - Works with all major inventories
 - Leaving a channel automatically if the radio is dropped, given away or removed
 - No database, no bridge resource
-- 0.00 ms Resmon
+- 0.00ms resmon while idle
 
 ## Requirements
 
