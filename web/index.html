@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Radio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="radio" hidden>
+  <div class="antenna"></div>
+  <div class="knob knob-ch" id="knob-ch" title="Scroll to change channel"><span class="knob-mark"></span></div>
+  <div class="knob knob-vol" id="knob-vol" title="Scroll to change volume"><span class="knob-mark"></span></div>
+  <div class="btn-emerg"></div>
+
+  <div class="ptt"></div>
+  <div class="side-btn s1"></div>
+  <div class="side-btn s2"></div>
+  <div class="grip grip-r"></div>
+
+  <div class="shell">
+    <i class="screw sc-tl"></i><i class="screw sc-tr"></i>
+    <i class="screw sc-bl"></i><i class="screw sc-br"></i>
+
+    <span class="led" id="led"></span>
+    <span class="brand">VS·APX</span>
+
+    <div class="bezel" id="bezel">
+      <div class="lcd" id="lcd">
+        <div class="lcd-status">
+          <span class="sig"><i></i><i></i><i></i><i></i></span>
+          <span class="pill pill-tx" id="pill-tx">TX</span>
+          <span class="pill pill-rx" id="pill-rx">RX</span>
+          <span class="clock" id="clock">--:--</span>
+          <span class="vol">
+            <svg id="vol-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12z"/></svg>
+            <span class="vol-bars" id="vol-bars"><i></i><i></i><i></i><i></i><i></i></span>
+          </span>
+        </div>
+
+        <div class="lcd-body">
+          <div class="lcd-line">
+            <span class="zone">Z1</span>
+            <span class="lcd-label" id="lcd-label">NO CHANNEL</span>
+          </div>
+          <div class="lcd-ch" id="lcd-ch">---</div>
+        </div>
+
+        <div class="lcd-soft">
+          <span>◀ CH</span><span>OFF</span><span>CH ▶</span>
+        </div>
+
+        <input id="lcd-input" type="text" inputmode="numeric" maxlength="3" autocomplete="off" aria-label="Type a channel">
+      </div>
+    </div>
+
+    <div class="softkeys">
+      <button class="soft" data-soft="down" aria-label="Channel down"></button>
+      <button class="soft" data-soft="off" aria-label="Leave channel"></button>
+      <button class="soft" data-soft="up" aria-label="Channel up"></button>
+    </div>
+
+    <div class="navrow">
+      <button class="side-key key-pwr" data-nav="off" aria-label="Leave channel">
+        <svg viewBox="0 0 24 24"><path d="M11 3h2v10h-2zm6.6 2.4 1.4 1.4A8 8 0 1 1 5 6.8l1.4-1.4A6 6 0 1 0 17.6 5.4z"/></svg>
+      </button>
+
+      <div class="rocker">
+        <button class="rk rk-up" data-nav="up" aria-label="Channel up"><i></i></button>
+        <button class="rk rk-down" data-nav="down" aria-label="Channel down"><i></i></button>
+        <button class="rk rk-left" data-nav="left" aria-label="Volume down"><i></i></button>
+        <button class="rk rk-right" data-nav="right" aria-label="Volume up"><i></i></button>
+        <button class="rk-ok" data-nav="ok" aria-label="OK">OK</button>
+      </div>
+
+      <button class="side-key key-mute" data-nav="mute" aria-label="Mute">
+        <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9zm13.6 3 2.7-2.7-1.4-1.4-2.7 2.7-2.7-2.7-1.4 1.4 2.7 2.7-2.7 2.7 1.4 1.4 2.7-2.7 2.7 2.7 1.4-1.4z"/></svg>
+      </button>
+    </div>
+
+    <div class="keypad">
+      <button class="key" data-key="1">1<small>&nbsp;</small></button>
+      <button class="key" data-key="2">2<small>ABC</small></button>
+      <button class="key" data-key="3">3<small>DEF</small></button>
+      <button class="key" data-key="4">4<small>GHI</small></button>
+      <button class="key" data-key="5">5<small>JKL</small></button>
+      <button class="key" data-key="6">6<small>MNO</small></button>
+      <button class="key" data-key="7">7<small>PQRS</small></button>
+      <button class="key" data-key="8">8<small>TUV</small></button>
+      <button class="key" data-key="9">9<small>WXYZ</small></button>
+      <button class="key key-clr" data-key="clr">✕<small>CLR</small></button>
+      <button class="key" data-key="0">0<small>&nbsp;</small></button>
+      <button class="key key-ent" data-key="ent">✓<small>ENT</small></button>
+    </div>
+
+    <div class="grille"></div>
+    <i class="mic"></i>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

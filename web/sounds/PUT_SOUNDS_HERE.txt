@@ -1,0 +1,8 @@
+Optional custom sounds:
+
+  key_up    plays when you start talking
+  key_down  plays when you stop talking
+
+Use .ogg, .mp3 or .wav (for example key_up.ogg). Keep them short and trimmed
+to the start. Missing files fall back to the built-in beeps.
+Restart the resource after adding files.
