@@ -48,7 +48,7 @@
         </div>
 
         <div class="lcd-soft">
-          <span>◀ CH</span><span>OFF</span><span>CH ▶</span>
+          <span id="soft-down">◀ CH</span><span id="soft-off">OFF</span><span id="soft-up">CH ▶</span>
         </div>
 
         <input id="lcd-input" type="text" inputmode="numeric" maxlength="3" autocomplete="off" aria-label="Type a channel">
@@ -98,6 +98,8 @@
     <i class="mic"></i>
   </div>
 </div>
+
+<div id="radiolist" class="rl pos-top-right" hidden></div>
 
 <script src="app.js"></script>
 </body>

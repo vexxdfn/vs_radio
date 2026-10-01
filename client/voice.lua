@@ -42,6 +42,7 @@ function Voice.setVolume(volume)
 end
 
 AddEventHandler('pma-voice:radioActive', function(talking)
+    SendNUIMessage({ action = 'talk', id = GetPlayerServerId(PlayerId()), value = talking == true })
     SendNUIMessage({
         action = 'tx',
         value = talking == true,
@@ -61,6 +62,7 @@ local function pushRx()
 end
 
 RegisterNetEvent('pma-voice:setTalkingOnRadio', function(src, talking)
+    SendNUIMessage({ action = 'talk', id = src, value = talking == true })
     if talking then
         if not talkers[src] then
             talkers[src] = true
@@ -75,6 +77,7 @@ end)
 
 function Voice.resetRx()
     talkers, talkerCount = {}, 0
+    SendNUIMessage({ action = 'talkReset' })
     pushRx()
 end
 

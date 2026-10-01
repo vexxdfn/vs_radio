@@ -1,5 +1,7 @@
 local isOpen = false
 local channel = 0
+
+function RadioIsOpen() return isOpen end
 local volume = Config.DefaultVolume
 local prop = nil
 local playing = nil
@@ -17,10 +19,10 @@ local BLOCKED = {
     199, 200, 322,
 }
 
-local function notify(message)
+local function notify(message, kind)
     if GetResourceState('ox_lib') == 'started' then
         local ok = pcall(function()
-            exports.ox_lib:notify({ type = 'error', description = message })
+            exports.ox_lib:notify({ type = kind or 'error', description = message })
         end)
         if ok then return end
     end
@@ -38,7 +40,7 @@ local function requestJoin(value, cb)
     SetTimeout(8000, function()
         if pending[token] then
             pending[token] = nil
-            cb(false, 'Request timed out.')
+            cb(false, _L('timed_out'))
         end
     end)
     TriggerServerEvent('vs_radio:server:join', value, token)
@@ -186,9 +188,11 @@ function openRadio()
         max = Config.MaxChannel,
         scale = Config.UI.scale,
         sounds = Config.UI.keySounds,
+        strings = UIStrings(),
     })
 
     pushClock(true)
+    RadioList.refresh()
     CreateThread(raise)
     CreateThread(controlLoop)
 end
@@ -199,6 +203,7 @@ function closeRadio()
     SetNuiFocusKeepInput(false)
     SetNuiFocus(false, false)
     SendNUIMessage({ action = 'close' })
+    RadioList.refresh()
     swallowPause()
     lower()
 end
@@ -238,7 +243,7 @@ if Config.Command and Config.Command ~= '' then
     end, false)
 
     if Config.Keybind and Config.Keybind ~= '' then
-        RegisterKeyMapping(Config.Command, 'Open radio', 'keyboard', Config.Keybind)
+        RegisterKeyMapping(Config.Command, _L('keymap_open'), 'keyboard', Config.Keybind)
     end
 end
 
@@ -268,7 +273,7 @@ RegisterNUICallback('join', function(body, cb)
             Voice.join(channel)
             Voice.resetRx()
         else
-            notify(result or 'Could not join that channel.')
+            notify(result or _L('join_failed'))
         end
         cb({ ok = ok, channel = channel })
     end)

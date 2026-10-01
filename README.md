@@ -3,7 +3,7 @@
 A handheld radio for FiveM built on [pma-voice](https://github.com/AvarianKnight/pma-voice). Runs standalone or with QBCore, Qbox or ESX. Use the radio item and it's instantly in your hand with a realistic radio. Walk, drive and talk with it open, then put it away and stay on your channel.
 
 # Support
-Join discord for support! http://discord.gg/FwN8UyPgHm
+Join discord for support! http://discord.gg/TzNJ6Z92Y5
 
 <img width="1874" height="786" alt="vs_phone1" src="https://github.com/user-attachments/assets/d3ac3d4f-34fd-41fb-b72a-5662d469e817" />
 
@@ -16,7 +16,12 @@ Join discord for support! http://discord.gg/FwN8UyPgHm
 - Type a channel on the keypad or click the screen and use your keyboard
 - Restricted channels by job or ACE permission, with labels
 - TX/RX lights and an in-game clock on the screen
+- On-screen channel list showing everyone on your channel, with whoever's talking lit up (works for several people at once)
+- Optional `/radioname` to set the name others see on the list (off by default, turn on with `allowNameChange` in the config)
+- The radio's screen shows who you're hearing, plus signal and glow effects when sending or receiving
+- `/radiolist` to hide or show the list
 - Beep when you start and stop talking (replaces pma-voice mic clicks)
+- Translated into English, Spanish, French, German and Portuguese, and easy to add more
 - Custom sounds: drop your own clips in `web/sounds/`
 - Held prop and animation, switches to an in-vehicle pose automatically
 - Closes itself on death, ragdoll, swimming or cuffs
@@ -161,3 +166,13 @@ Place `key_up` and/or `key_down` (`.ogg`, `.mp3` or `.wav`) in `web/sounds/` and
 
 Licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 Free to use on any server, including monetized ones. You may not sell or resell this script.
+
+## Translations
+
+Set the language in `config.lua`:
+
+```lua
+Config.Locale = 'en' -- 'en', 'es', 'fr', 'de' or 'pt'
+```
+
+To add a language, copy `locales/en.lua` to a new file (for example `locales/it.lua`), change `Locales['en']` to `Locales['it']`, translate the text on the right, and set `Config.Locale = 'it'`. Anything you leave out falls back to English. Pull requests with new languages are welcome!

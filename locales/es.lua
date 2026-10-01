@@ -1,0 +1,29 @@
+-- Spanish
+Locales = Locales or {}
+
+Locales['es'] = {
+    need_radio = "Necesitas una radio.",
+    invalid_channel = "Canal no válido.",
+    restricted = "El canal %d está restringido.",
+    timed_out = "La solicitud ha caducado.",
+    join_failed = "No se pudo unir a ese canal.",
+    no_radio = "No tienes una radio.",
+    still_loading = "Tu personaje aún se está cargando, inténtalo de nuevo en un momento.",
+    name_reset = "Tu nombre en la radio se restableció a %s",
+    name_changed = "Tu nombre en la radio ahora es %s",
+    suggest_list = "Mostrar u ocultar la lista del canal de radio",
+    suggest_name = "Cambia el nombre que otros ven en la lista de radio",
+    suggest_name_arg = "Déjalo vacío para volver al nombre de tu personaje",
+    keymap_open = "Abrir radio",
+    player_fallback = "Jugador %s",
+    ui_no_channel = "SIN CANAL",
+    ui_enter = "INTRODUCE CANAL",
+    ui_tuning = "SINTONIZANDO",
+    ui_channel = "CANAL",
+    ui_unknown = "DESCONOCIDO",
+    ui_radio = "Radio",
+    ui_more = "+%s más",
+    ui_soft_down = "◀ CH",
+    ui_soft_off = "SALIR",
+    ui_soft_up = "CH ▶",
+}

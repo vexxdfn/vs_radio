@@ -53,3 +53,29 @@ function Bridge.jobOf(src)
     local job = ply.PlayerData.job
     return job and job.name
 end
+
+function Bridge.nameOf(src)
+    local ply = Bridge.getPlayer(src)
+    if ply then
+        if Bridge.name == 'esx' then
+            local name = ply.getName and ply.getName()
+            if name and name ~= '' then return name end
+        else
+            local ci = ply.PlayerData and ply.PlayerData.charinfo
+            if ci then
+                local name = ((ci.firstname or '') .. ' ' .. (ci.lastname or '')):gsub('^%s+', ''):gsub('%s+$', '')
+                if name ~= '' then return name end
+            end
+        end
+    end
+    return GetPlayerName(src) or _L('player_fallback', src)
+end
+
+function Bridge.idOf(src)
+    local ply = Bridge.getPlayer(src)
+    if ply then
+        if Bridge.name == 'esx' then return ply.identifier end
+        return ply.PlayerData and ply.PlayerData.citizenid
+    end
+    return GetPlayerIdentifierByType(src, 'license')
+end

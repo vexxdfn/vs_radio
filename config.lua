@@ -1,5 +1,8 @@
 Config = {}
 
+-- Language: 'en', 'es', 'fr', 'de' or 'pt'. Add your own by copying locales/en.lua.
+Config.Locale = 'en'
+
 Config.Framework = 'auto' -- 'auto', 'qbx', 'qb', 'esx' or 'none' (standalone)
 -- 'auto' detects it. Or set one of: 'ox', 'qs', 'qb', 'ps', 'lj', 'codem',
 -- 'tgiann', 'core', 'origen', 'esx'
@@ -55,3 +58,15 @@ Config.Anim = {
 }
 
 Config.JobCacheMs = 15000
+
+-- On-screen list of everyone on your channel, with who's talking lit up.
+Config.RadioList = {
+    enabled         = true,
+    position        = 'middle-right', -- 'middle-right', 'middle-left', 'top-right' or 'top-left'
+    showWhenClosed  = true,        -- keep the list on screen after putting the radio away
+    maxShown        = 12,          -- names shown before it says "+X more"
+    toggleCommand   = 'radiolist', -- hides/shows the list for that player. '' to disable
+    allowNameChange = false,       -- let players pick the name others see on the list (/radioname)
+    nameCommand     = 'radioname', -- /radioname Test Tester  (/radioname on its own resets it)
+    maxNameLength   = 24,
+}

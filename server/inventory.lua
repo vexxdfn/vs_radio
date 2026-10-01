@@ -69,7 +69,7 @@ RegisterNetEvent('vs_radio:server:itemUsed', function()
     if Inventory.hasRadio(src) then
         toggle(src)
     else
-        TriggerClientEvent('vs_radio:client:notify', src, 'You don\'t have a radio.')
+        TriggerClientEvent('vs_radio:client:notify', src, _L('no_radio'))
     end
 end)
 

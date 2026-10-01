@@ -4,19 +4,25 @@ lua54 'yes'
 
 name 'vs_radio'
 author 'VS Scripts'
-version '1.0.0'
-description 'Handheld radio for pma-voice. Standalone or QBCore, Qbox, ESX'
+version '1.1.0'
+description 'Handheld radio for pma-voice. Standalone or QBCore, Qbox, ESX discord.gg/TzNJ6Z92Y5 for support'
 
-shared_script 'config.lua'
+shared_scripts {
+    'config.lua',
+    'locales/*.lua',
+    'locale.lua',
+}
 
 client_scripts {
     'client/voice.lua',
     'client/main.lua',
+    'client/list.lua',
 }
 
 server_scripts {
     'server/bridge.lua',
     'server/inventory.lua',
+    'server/list.lua',
     'server/main.lua',
 }
 

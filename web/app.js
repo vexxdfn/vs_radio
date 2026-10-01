@@ -21,6 +21,71 @@ const state = {
   clock: '--:--',
 };
 
+const T = {
+  ui_no_channel: 'NO CHANNEL', ui_enter: 'ENTER CHANNEL', ui_tuning: 'TUNING', ui_channel: 'CHANNEL',
+  ui_unknown: 'UNKNOWN', ui_radio: 'Radio', ui_more: '+%s more',
+  ui_soft_down: '\u25C0 CH', ui_soft_off: 'OFF', ui_soft_up: 'CH \u25B6',
+};
+const fmt = (s, v) => String(s).replace('%s', v);
+
+function applyStrings(strings) {
+  if (!strings) return;
+  Object.assign(T, strings);
+  $('#soft-down').textContent = T.ui_soft_down;
+  $('#soft-off').textContent = T.ui_soft_off;
+  $('#soft-up').textContent = T.ui_soft_up;
+}
+
+const list = { show: false, channel: 0, label: null, members: [], me: 0, position: 'top-right', max: 12 };
+const talking = new Set();
+const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+function nameOf(id) {
+  const m = list.members.find((x) => x.id === id);
+  return m ? m.name : null;
+}
+
+function incoming() {
+  const names = [];
+  talking.forEach((id) => { if (id !== list.me) names.push(nameOf(id) || T.ui_unknown); });
+  return names;
+}
+
+function renderList() {
+  const el = $('#radiolist');
+  if (!list.show || !list.channel) { el.hidden = true; return; }
+  el.className = 'rl pos-' + (list.position || 'top-right');
+  const title = list.label ? `${esc(list.label)} <em>${list.channel}</em>` : `${esc(T.ui_radio)} <em>${list.channel}</em>`;
+  const shown = list.members.slice(0, list.max || 12);
+  const extra = list.members.length - shown.length;
+  el.innerHTML = `
+    <div class="rl-head">
+      <svg viewBox="0 0 24 24"><path d="M7 2h2v5h8a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2zm1 8v3h8v-3zm1 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>
+      <b>${title}</b><span class="rl-count">${list.members.length}</span>
+    </div>
+    ${shown.map((m) => `
+      <div class="rl-row${talking.has(m.id) ? ' talk' : ''}${m.id === list.me ? ' me' : ''}" data-id="${m.id}">
+        <span class="rl-wave"><i></i><i></i><i></i><i></i></span>
+        <span class="rl-name">${esc(m.name)}</span>
+      </div>`).join('')}
+    ${extra > 0 ? `<div class="rl-more">${esc(fmt(T.ui_more, extra))}</div>` : ''}`;
+  el.hidden = false;
+}
+
+function setTalking(id, on) {
+  if (on) talking.add(id); else talking.delete(id);
+  const row = document.querySelector(`#radiolist .rl-row[data-id="${id}"]`);
+  if (row) row.classList.toggle('talk', on);
+  if (state.open) render();
+}
+
+function flash() {
+  const lcd = $('#lcd');
+  lcd.classList.remove('flash');
+  void lcd.offsetWidth;
+  lcd.classList.add('flash');
+}
+
 async function post(endpoint, body) {
   try {
     const res = await fetch(`https://${RES}/${endpoint}`, {
@@ -123,16 +188,20 @@ function render() {
 
   if (state.entry) {
     chEl.textContent = (state.entry + '___').slice(0, 3);
-    label.textContent = 'ENTER CHANNEL';
+    label.textContent = T.ui_enter;
   } else if (state.tuning !== null) {
     chEl.textContent = pad3(state.tuning);
-    label.textContent = state.labels[String(state.tuning)] || 'TUNING';
+    label.textContent = state.labels[String(state.tuning)] || T.ui_tuning;
   } else if (state.channel) {
     chEl.textContent = pad3(state.channel);
-    label.textContent = state.labels[String(state.channel)] || 'CHANNEL';
+    const rx = state.rx && !state.tx ? incoming() : [];
+    label.textContent = rx.length
+      ? `\u25B8 ${rx[0]}${rx.length > 1 ? ` +${rx.length - 1}` : ''}`
+      : (state.labels[String(state.channel)] || T.ui_channel);
+    label.classList.toggle('rxname', rx.length > 0);
   } else {
     chEl.textContent = '---';
-    label.textContent = 'NO CHANNEL';
+    label.textContent = T.ui_no_channel;
   }
 
   const lit = Math.round(state.volume / 20);
@@ -146,6 +215,12 @@ function render() {
   const led = $('#led');
   led.classList.toggle('tx', state.tx);
   led.classList.toggle('rx', state.rx && !state.tx);
+
+  lcd.classList.toggle('rxon', state.rx && !state.tx && state.channel > 0);
+  lcd.classList.toggle('txon', state.tx && state.channel > 0);
+  $('#bezel').classList.toggle('rx', state.rx && !state.tx && state.channel > 0);
+  $('#bezel').classList.toggle('tx', state.tx && state.channel > 0);
+  if (!state.channel || state.entry || state.tuning !== null) label.classList.remove('rxname');
 }
 
 async function join(value) {
@@ -236,6 +311,10 @@ function close() {
   post('close', {});
 }
 
+$('#radio').addEventListener('pointerdown', (e) => {
+  if (e.target.closest('button, .knob')) flash();
+});
+
 document.querySelector('.keypad').addEventListener('click', (e) => {
   const k = e.target.closest('[data-key]');
   if (k) pressKey(k.dataset.key);
@@ -309,6 +388,7 @@ window.addEventListener('message', (e) => {
       state.min = d.min || 1;
       state.max = d.max || 999;
       state.keySounds = d.sounds !== false;
+      applyStrings(d.strings);
       state.entry = '';
       state.tuning = null;
       document.documentElement.style.setProperty('--scale', d.scale || 1);
@@ -344,6 +424,30 @@ window.addEventListener('message', (e) => {
 
     case 'rx':
       state.rx = !!d.value;
+      if (state.open) render();
+      break;
+
+    case 'list':
+      list.show = !!d.show;
+      list.channel = d.channel || 0;
+      list.label = d.label || null;
+      list.members = Array.isArray(d.members) ? d.members : [];
+      list.me = d.me || 0;
+      list.position = d.position || 'top-right';
+      list.max = d.max || 12;
+      applyStrings(d.strings);
+      if (!list.channel) talking.clear();
+      renderList();
+      if (state.open) render();
+      break;
+
+    case 'talk':
+      setTalking(Number(d.id), !!d.value);
+      break;
+
+    case 'talkReset':
+      talking.clear();
+      document.querySelectorAll('#radiolist .rl-row.talk').forEach((r) => r.classList.remove('talk'));
       if (state.open) render();
       break;
   }
