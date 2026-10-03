@@ -2,8 +2,8 @@ fx_version 'cerulean'
 game 'gta5'
 lua54 'yes'
 
-name 'vs_radio'
-author 'VS Scripts'
+name 'vexxd_radio'
+author 'Vexxd Scripts'
 version '1.1.0'
 description 'Handheld radio for pma-voice. Standalone or QBCore, Qbox, ESX discord.gg/TzNJ6Z92Y5 for support'
 

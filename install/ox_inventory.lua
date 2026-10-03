@@ -8,6 +8,6 @@
     close = true,
     description = 'A handheld radio.',
     client = {
-        export = 'vs_radio.useRadio',
+        export = 'vexxd_radio.useRadio',
     },
 },

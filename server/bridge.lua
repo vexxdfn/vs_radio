@@ -30,7 +30,7 @@ CreateThread(function()
         Bridge.core = exports['es_extended']:getSharedObject()
     else
         Bridge.name = 'none'
-        print('^3[vs_radio]^7 No framework found, running standalone.')
+        print('^3[vexxd_radio]^7 No framework found, running standalone.')
     end
 
     Bridge.ready = true

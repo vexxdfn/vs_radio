@@ -27,7 +27,7 @@ function List.push(ch)
     if not L.enabled or not members[ch] then return end
     local list = snapshot(ch)
     for src in pairs(members[ch]) do
-        TriggerClientEvent('vs_radio:client:list', src, ch, list)
+        TriggerClientEvent('vexxd_radio:client:list', src, ch, list)
     end
 end
 
@@ -39,7 +39,7 @@ function List.remove(src, silent)
         members[ch][src] = nil
         if not next(members[ch]) then members[ch] = nil end
     end
-    if not silent then TriggerClientEvent('vs_radio:client:list', src, 0, {}) end
+    if not silent then TriggerClientEvent('vexxd_radio:client:list', src, 0, {}) end
     List.push(ch)
 end
 
@@ -70,7 +70,7 @@ if L.enabled and L.allowNameChange and L.nameCommand and L.nameCommand ~= '' the
 
         local id = Bridge.idOf(src)
         if not id then
-            return TriggerClientEvent('vs_radio:client:notify', src, _L('still_loading'))
+            return TriggerClientEvent('vexxd_radio:client:notify', src, _L('still_loading'))
         end
 
         local name = table.concat(args, ' ')
@@ -83,11 +83,11 @@ if L.enabled and L.allowNameChange and L.nameCommand and L.nameCommand ~= '' the
         if name == '' then
             DeleteResourceKvp(kvpKey(id))
             names[src] = nil
-            TriggerClientEvent('vs_radio:client:notify', src, _L('name_reset', Bridge.nameOf(src)), 'inform')
+            TriggerClientEvent('vexxd_radio:client:notify', src, _L('name_reset', Bridge.nameOf(src)), 'inform')
         else
             SetResourceKvp(kvpKey(id), name)
             names[src] = nil
-            TriggerClientEvent('vs_radio:client:notify', src, _L('name_changed', name), 'inform')
+            TriggerClientEvent('vexxd_radio:client:notify', src, _L('name_changed', name), 'inform')
         end
 
         if channelOf[src] then List.push(channelOf[src]) end

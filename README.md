@@ -1,11 +1,11 @@
-# vs_radio
+# vexxd_radio
 
 A handheld radio for FiveM built on [pma-voice](https://github.com/AvarianKnight/pma-voice). Runs standalone or with QBCore, Qbox or ESX. Use the radio item and it's instantly in your hand with a realistic radio. Walk, drive and talk with it open, then put it away and stay on your channel.
 
 # Support
 Join discord for support! http://discord.gg/TzNJ6Z92Y5
 
-<img width="1874" height="786" alt="vs_phone1" src="https://github.com/user-attachments/assets/d3ac3d4f-34fd-41fb-b72a-5662d469e817" />
+<img width="1874" height="786" alt="vexxd_phone1" src="https://github.com/user-attachments/assets/d3ac3d4f-34fd-41fb-b72a-5662d469e817" />
 
 ## Features
 
@@ -38,10 +38,10 @@ Join discord for support! http://discord.gg/TzNJ6Z92Y5
 
 ## Installation
 
-1. Place `vs_radio` in your `resources` folder.
+1. Place `vexxd_radio` in your `resources` folder.
 2. Add the radio item using the file in `install/` for your inventory (see below).
 3. Copy `install/images/radio.png` into your inventory's image folder.
-4. Add `ensure vs_radio` to your `server.cfg`, after your framework, inventory and `pma-voice`.
+4. Add `ensure vexxd_radio` to your `server.cfg`, after your framework, inventory and `pma-voice`.
 
 | Inventory | Item file | Image folder |
 | --- | --- | --- |
@@ -74,7 +74,7 @@ The `client.export` line in `install/ox_inventory.lua` is optional but recommend
 If your inventory doesn't use the framework's usable items, trigger this server event from its item-use callback:
 
 ```lua
-TriggerServerEvent('vs_radio:server:itemUsed')
+TriggerServerEvent('vexxd_radio:server:itemUsed')
 ```
 
 If it also doesn't keep the framework's item functions up to date, tell the radio how to count items in `config.lua`:
@@ -111,8 +111,8 @@ All options are in `config.lua`.
 
 ```lua
 Config.Channels = {
-    [1] = { label = 'LEO MAIN', jobs = { 'police' }, ace = 'vs_radio.leo' },
-    [2] = { label = 'EMS MAIN', jobs = { 'ambulance', 'ems' }, ace = 'vs_radio.ems' },
+    [1] = { label = 'LEO MAIN', jobs = { 'police' }, ace = 'vexxd_radio.leo' },
+    [2] = { label = 'EMS MAIN', jobs = { 'ambulance', 'ems' }, ace = 'vexxd_radio.ems' },
 }
 ```
 
@@ -131,7 +131,7 @@ Config.Keybind = 'F10'
 Players open the radio with `/radio` or the keybind. Restrict channels with ACE permissions in your `server.cfg`:
 
 ```cfg
-add_ace group.police vs_radio.leo allow
+add_ace group.police vexxd_radio.leo allow
 add_principal identifier.license:xxxxxxxx group.police
 ```
 

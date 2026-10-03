@@ -25,7 +25,7 @@ function RadioList.refresh()
     })
 end
 
-RegisterNetEvent('vs_radio:client:list', function(ch, list)
+RegisterNetEvent('vexxd_radio:client:list', function(ch, list)
     current = tonumber(ch) or 0
     members = type(list) == 'table' and list or {}
     RadioList.refresh()

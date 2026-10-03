@@ -1,7 +1,7 @@
 (() => {
 'use strict';
 
-const RES = (window.GetParentResourceName && window.GetParentResourceName()) || 'vs_radio';
+const RES = (window.GetParentResourceName && window.GetParentResourceName()) || 'vexxd_radio';
 const $ = (s) => document.querySelector(s);
 
 const state = {

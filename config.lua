@@ -35,8 +35,8 @@ Config.MaxChannel = 999
 -- A player can join if their job is listed OR they have the ace permission.
 -- Standalone servers: use ace only (see README).
 Config.Channels = {
-    [1] = { label = 'LEO MAIN', jobs = { 'police' }, ace = 'vs_radio.leo' },
-    [2] = { label = 'EMS MAIN', jobs = { 'ambulance', 'ems' }, ace = 'vs_radio.ems' },
+    [1] = { label = 'LEO MAIN', jobs = { 'police' }, ace = 'vexxd_radio.leo' },
+    [2] = { label = 'EMS MAIN', jobs = { 'ambulance', 'ems' }, ace = 'vexxd_radio.ems' },
 }
 
 Config.UI = {
@@ -67,6 +67,6 @@ Config.RadioList = {
     maxShown        = 12,          -- names shown before it says "+X more"
     toggleCommand   = 'radiolist', -- hides/shows the list for that player. '' to disable
     allowNameChange = false,       -- let players pick the name others see on the list (/radioname)
-    nameCommand     = 'radioname', -- /radioname Test Tester  (/radioname on its own resets it)
+    nameCommand     = 'radioname', -- /radioname Roger Scott  (/radioname on its own resets it)
     maxNameLength   = 24,
 }

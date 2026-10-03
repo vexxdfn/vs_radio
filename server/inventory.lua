@@ -22,7 +22,7 @@ CreateThread(function()
     while not Bridge.ready do Wait(250) end
     if Config.RequireItem and Bridge.name == 'none' and Inventory.name == 'framework'
         and type(Config.CustomItemCount) ~= 'function' then
-        print('^1[vs_radio]^7 Running standalone with Config.RequireItem on, but no inventory can be checked. Set Config.RequireItem = false or use ox_inventory.')
+        print('^1[vexxd_radio]^7 Running standalone with Config.RequireItem on, but no inventory can be checked. Set Config.RequireItem = false or use ox_inventory.')
     end
 end)
 
@@ -59,17 +59,17 @@ function Inventory.hasRadio(src)
 end
 
 local function toggle(src)
-    TriggerClientEvent('vs_radio:client:toggleRadio', src)
+    TriggerClientEvent('vexxd_radio:client:toggleRadio', src)
 end
 
 -- Used by the command/keybind, and as a manual hook for inventories that
 -- don't route item use through the framework.
-RegisterNetEvent('vs_radio:server:itemUsed', function()
+RegisterNetEvent('vexxd_radio:server:itemUsed', function()
     local src = source
     if Inventory.hasRadio(src) then
         toggle(src)
     else
-        TriggerClientEvent('vs_radio:client:notify', src, _L('no_radio'))
+        TriggerClientEvent('vexxd_radio:client:notify', src, _L('no_radio'))
     end
 end)
 

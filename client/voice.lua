@@ -13,7 +13,7 @@ CreateThread(function()
     end
 
     if not Voice.available then
-        print('^1[vs_radio]^7 pma-voice is not running.')
+        print('^1[vexxd_radio]^7 pma-voice is not running.')
         return
     end
 

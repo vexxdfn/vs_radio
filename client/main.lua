@@ -43,10 +43,10 @@ local function requestJoin(value, cb)
             cb(false, _L('timed_out'))
         end
     end)
-    TriggerServerEvent('vs_radio:server:join', value, token)
+    TriggerServerEvent('vexxd_radio:server:join', value, token)
 end
 
-RegisterNetEvent('vs_radio:client:joinResult', function(token, ok, result)
+RegisterNetEvent('vexxd_radio:client:joinResult', function(token, ok, result)
     local cb = pending[token]
     if not cb then return end
     pending[token] = nil
@@ -224,7 +224,7 @@ local function leaveChannel()
     channel = 0
     Voice.leave()
     Voice.resetRx()
-    TriggerServerEvent('vs_radio:server:left')
+    TriggerServerEvent('vexxd_radio:server:left')
 end
 
 local function forceOff()
@@ -233,13 +233,13 @@ local function forceOff()
 end
 
 exports('useRadio', toggle)
-RegisterNetEvent('vs_radio:client:toggleRadio', toggle)
-RegisterNetEvent('vs_radio:client:forceOff', forceOff)
-RegisterNetEvent('vs_radio:client:notify', notify)
+RegisterNetEvent('vexxd_radio:client:toggleRadio', toggle)
+RegisterNetEvent('vexxd_radio:client:forceOff', forceOff)
+RegisterNetEvent('vexxd_radio:client:notify', notify)
 
 if Config.Command and Config.Command ~= '' then
     RegisterCommand(Config.Command, function()
-        TriggerServerEvent('vs_radio:server:itemUsed')
+        TriggerServerEvent('vexxd_radio:server:itemUsed')
     end, false)
 
     if Config.Keybind and Config.Keybind ~= '' then

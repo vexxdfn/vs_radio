@@ -44,17 +44,17 @@ local function canJoin(src, value)
     return false, _L('restricted', channel)
 end
 
-RegisterNetEvent('vs_radio:server:join', function(value, token)
+RegisterNetEvent('vexxd_radio:server:join', function(value, token)
     local src = source
     local ok, reason, channel = canJoin(src, value)
     if ok then
         onRadio[src] = true
         List.set(src, channel)
     end
-    TriggerClientEvent('vs_radio:client:joinResult', src, token, ok, ok and channel or reason)
+    TriggerClientEvent('vexxd_radio:client:joinResult', src, token, ok, ok and channel or reason)
 end)
 
-RegisterNetEvent('vs_radio:server:left', function()
+RegisterNetEvent('vexxd_radio:server:left', function()
     onRadio[source] = nil
     List.remove(source)
 end)
@@ -74,7 +74,7 @@ CreateThread(function()
             elseif not Inventory.hasRadio(src) then
                 onRadio[src] = nil
                 List.remove(src)
-                TriggerClientEvent('vs_radio:client:forceOff', src)
+                TriggerClientEvent('vexxd_radio:client:forceOff', src)
             end
         end
     end
